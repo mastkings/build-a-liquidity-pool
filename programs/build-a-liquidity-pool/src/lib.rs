@@ -69,26 +69,6 @@ pub fn request_vouch(ctx: Context<RequestVouch>, vouch: VouchRequest) -> Result<
     Ok(())
 }
 
-// Approve a vouch for the portfolio
-// pub fn approve_vouch(ctx: Context<ApproveVouch>, vouch_user: Pubkey) -> Result<()> {
-//     // Access control check: Only owner can approve vouch
-//     if *ctx.accounts.authority.key != ctx.accounts.portfolio.owner {
-//         return Err(ErrorCode::Unauthorized.into());
-//     }
-//     // Extract mutable reference to the portfolio account
-//     let portfolio = &mut ctx.accounts.portfolio;
-//     // Find the vouch request and approve it
-//     if let Some(vouch_request) = portfolio.vouch_requests.iter_mut().find(|v| v.vouched_by == vouch_user) {
-//         vouch_request.is_approved = true;
-//         // Add the vouch to the portfolio's list of vouches
-//         portfolio.vouches.push(Vouch {
-//             vouched_by: vouch_request.vouched_by,
-//             comment: vouch_request.comment.clone(),
-//         });
-//     }
-//     Ok(())
-// }
-
 pub fn approve_vouch(ctx: Context<ApproveVouch>, vouch_user: Pubkey) -> Result<()> {
     // Access control check: Only owner can approve vouch
     if *ctx.accounts.authority.key != ctx.accounts.liquidity.owner {
@@ -122,7 +102,7 @@ pub fn approve_vouch(ctx: Context<ApproveVouch>, vouch_user: Pubkey) -> Result<(
 // Send a message to the liquidity owner
 pub fn send_message(ctx: Context<SendMessage>, content: String) -> Result<()> {
     // Extract mutable reference to the liquidity account
-    let portfolio = &mut ctx.accounts.liquidity;
+    let liquidity = &mut ctx.accounts.liquidity;
     // Add the message to the portfolio's list of messages
     liquidity.messages.push(Message {
         sender: *ctx.accounts.authority.key,
