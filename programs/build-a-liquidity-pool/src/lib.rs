@@ -206,9 +206,9 @@ const PUBKEY: usize = 32;
 const UNSIGNED_64: usize = 8;
 const BUMP: usize = 1;
 
-// Portfolio data structure
+// liquidity data structure
 #[account]
-pub struct Portfolio {
+pub struct liquidity {
 pub owner: Pubkey,
 pub bio: String,
 pub links: Vec<String>,      // A vector to store multiple links
@@ -220,7 +220,7 @@ pub tip_amount: u64,
 pub bump: u8
 }
 
-impl Portfolio{
+impl liquidity{
 pub const LEN: usize = DISCRIMINATOR + PUBKEY + PUBKEY + UNSIGNED_64 + BUMP;
 }
 
